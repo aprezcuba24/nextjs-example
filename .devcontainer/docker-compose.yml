@@ -1,0 +1,23 @@
+version: '3'
+services:
+  app:
+    build: .
+    command: sleep infinity
+    volumes:
+      - ..:/app
+    links:
+      - postgres
+
+  postgres:
+    image: postgres:15-alpine3.18
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - nextjs_example_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  nextjs_example_postgres_data: {}
+  nextjs_example_postgres_data_backups: {}
