@@ -1,6 +1,6 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
-import { Category } from "./entity/category.entity"
+import { Category } from "./entity/category/category.entity"
 import * as dotenv from 'dotenv'
 
 dotenv.config({
