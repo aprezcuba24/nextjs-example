@@ -1,7 +1,7 @@
 import { createCategory, getCategories } from "@/models/entity/category/actions"
 import ButtonDialog from "@/components/ButtonDialog"
 import Form from "./form"
-import { CategoryTable } from "./list"
+import { CategoryTable } from "./Table"
 
 export default async function Page() {
   const categories = await getCategories()
