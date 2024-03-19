@@ -11,3 +11,7 @@ export async function createCategory(props: any) {
 export async function getCategories() {
   return (await Category.find()).map((item) => instanceToPlain(item))
 }
+
+export async function removeCategory(id: number) {
+  return Category.delete(id)
+}

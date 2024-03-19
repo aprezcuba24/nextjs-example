@@ -1,4 +1,4 @@
-import { createCategory, getCategories } from "@/models/entity/category/actions"
+import { createCategory, getCategories, removeCategory } from "@/models/entity/category/actions"
 import { CategoryTable } from "./Table"
 import { Category } from "@/models/entity/category/category.entity"
 import { revalidatePath } from "next/cache"
@@ -11,10 +11,15 @@ export default async function Page() {
     await createCategory(props)
     revalidatePath('categories')
   }
+  async function remove(id: number) {
+    'use server'
+    await removeCategory(id);
+    revalidatePath('categories')
+  }
   return (
     <>
       <DialogForm action={create} defaultValues={{ name: '', description: '' }} />
-      <CategoryTable data={categories as Category[]} />
+      <CategoryTable data={categories as Category[]} remove={remove} />
     </>
   )
 }
