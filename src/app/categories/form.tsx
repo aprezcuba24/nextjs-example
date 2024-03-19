@@ -10,6 +10,7 @@ import { useCallback } from "react"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Category } from "@/models/entity/category/category.entity"
 import { instanceToPlain } from 'class-transformer';
+import { ReloadIcon } from "@radix-ui/react-icons"
 
 type FormAction = {
   action: (object: any) => Promise<any>,
@@ -58,7 +59,10 @@ export default function FormCategory({ action, defaultValues }: FormAction) {
           )}
         />
         <div className="pt-4 text-right">
-          <Button type="submit" aria-disabled={pending}>Save</Button>
+          <Button type="submit" aria-disabled={pending} disabled={pending}>
+            {pending && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
+            Save
+          </Button>
         </div>
       </form>
     </Form>

@@ -1,16 +1,20 @@
 import { createCategory, getCategories } from "@/models/entity/category/actions"
-import ButtonDialog from "@/components/ButtonDialog"
-import Form from "./form"
 import { CategoryTable } from "./Table"
+import { Category } from "@/models/entity/category/category.entity"
+import { revalidatePath } from "next/cache"
+import { DialogForm } from "./DialogForm"
 
 export default async function Page() {
   const categories = await getCategories()
+  async function create(props: Category) {
+    'use server'
+    await createCategory(props)
+    revalidatePath('categories')
+  }
   return (
     <>
-      <ButtonDialog title="New" btnText="New">
-        <Form action={createCategory} defaultValues={{ name: '', description: '' }} />
-      </ButtonDialog>
-      <CategoryTable data={categories} />
+      <DialogForm action={create} defaultValues={{ name: '', description: '' }} />
+      <CategoryTable data={categories as Category[]} />
     </>
   )
 }
