@@ -12,7 +12,7 @@ import { Category } from "@/models/entity/category/category.entity"
 import { instanceToPlain } from 'class-transformer';
 
 type FormAction = {
-  action: (object: any) => Promise<void>,
+  action: (object: any) => Promise<any>,
   defaultValues: any,
 }
 const resolver = classValidatorResolver(Category);
@@ -26,7 +26,6 @@ export default function FormCategory({ action, defaultValues }: FormAction) {
 
   const onSubmit = useCallback(async (e: Category) => {
     const a = await action(instanceToPlain(e))
-    console.log(a);
   }, [action])
 
   return (

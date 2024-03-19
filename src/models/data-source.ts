@@ -22,7 +22,7 @@ export const AppDataSource = new DataSource({
   logging: true,
   entities: [Category],
   subscribers: [],
-  "migrations": [
+  migrations: [
     `${BASE_FOLDER}/migrations/**/*.{ts,js}`
   ],
 })

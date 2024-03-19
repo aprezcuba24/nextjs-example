@@ -1,23 +1,17 @@
-import { createCategory } from "@/models/entity/category/actions"
+import { createCategory, getCategories } from "@/models/entity/category/actions"
+import ButtonDialog from "@/components/ButtonDialog"
 import Form from "./form"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { CategoryTable } from "./list"
 
-export default function Page() {
+export default async function Page() {
+  const categories = await getCategories()
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">New</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>New</DialogTitle>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <Form action={createCategory} defaultValues={{ name: '', description: '' }} />
-        </div>
-      </DialogContent>
-    </Dialog>
+    <>
+      <ButtonDialog title="New" btnText="New">
+        <Form action={createCategory} defaultValues={{ name: '', description: '' }} />
+      </ButtonDialog>
+      <CategoryTable data={categories} />
+    </>
   )
 }
 
