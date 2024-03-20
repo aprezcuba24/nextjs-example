@@ -7,24 +7,18 @@ import { TrashIcon, Pencil1Icon } from '@radix-ui/react-icons'
 import { Button } from "@/components/ui/button"
 import { MouseEventHandler } from "react"
 import { DialogForm } from "./DialogForm"
-
-type TRemoveAction = (id: number) => Promise<void>
-type TUpdateAction = (props: Category) => Promise<void>
+import { useTableContext } from "@/context/table"
 
 type CategoryTableProps = {
   data: Category[],
-  remove: TRemoveAction,
-  update: TUpdateAction,
 }
 
 type ActionProps = {
   row: Category,
-  remove: TRemoveAction,
-  update: TUpdateAction,
 }
 
-function RowActions({ row, remove, update }: ActionProps) {
-  console.log(row);
+function RowActions({ row }: ActionProps) {
+  const { remove, update } = useTableContext()
   return (
     <div>
       <DialogForm title="Edit" action={update} defaultValues={row} btnIcon={<Pencil1Icon />} />
@@ -35,23 +29,24 @@ function RowActions({ row, remove, update }: ActionProps) {
   )
 }
 
-export function CategoryTable({ data, remove, update }: CategoryTableProps) {
-  const columns: ColumnDef<Category>[] = [
-    {
-      accessorKey: "name",
-      header: "Name",
-    },
-    {
-      accessorKey: "description",
-      header: 'Description',
-    },
-    {
-      accessorKey: "id",
-      header: 'Actions',
-      cell: ({ row }) => <RowActions row={row.original} remove={remove} update={update} />,
-      enableSorting: false,
-      enableHiding: false,
-    },
-  ]
+const columns: ColumnDef<Category>[] = [
+  {
+    accessorKey: "name",
+    header: "Name",
+  },
+  {
+    accessorKey: "description",
+    header: 'Description',
+  },
+  {
+    accessorKey: "id",
+    header: 'Actions',
+    cell: ({ row }) => <RowActions row={row.original} />,
+    enableSorting: false,
+    enableHiding: false,
+  },
+]
+
+export function CategoryTable({ data }: CategoryTableProps) {
   return <TableData data={data} columns={columns} />
 }
