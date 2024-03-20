@@ -4,10 +4,9 @@ import { TableData } from "@/components/Table"
 import { Category } from "@/models/entity/category/category.entity"
 import { ColumnDef } from "@tanstack/react-table"
 import { TrashIcon, Pencil1Icon } from '@radix-ui/react-icons'
-import { Button } from "@/components/ui/button"
-import { MouseEventHandler } from "react"
 import { DialogForm } from "./DialogForm"
 import { useTableContext } from "@/context/table"
+import { BtnConfirm } from "@/components/BtnConfirm"
 
 type CategoryTableProps = {
   data: Category[],
@@ -22,9 +21,12 @@ function RowActions({ row }: ActionProps) {
   return (
     <div>
       <DialogForm title="Edit" action={update} defaultValues={row} btnIcon={<Pencil1Icon />} />
-      <Button onClick={() => remove(row.id as number) as unknown as MouseEventHandler<HTMLButtonElement>} variant="outline" size="icon">
-        <TrashIcon />
-      </Button>
+      <BtnConfirm
+        title={"Are you absolutely sure?"}
+        description={"The record will be removed."}
+        btnIcon={<TrashIcon />}
+        action={() => remove(row.id as number)}
+      />
     </div>
   )
 }
