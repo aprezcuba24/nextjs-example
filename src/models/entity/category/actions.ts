@@ -15,3 +15,8 @@ export async function getCategories() {
 export async function removeCategory(id: number) {
   return Category.delete(id)
 }
+
+export async function updateCategory(props: Category) {
+  const entity = plainToClass(Category, props)
+  return entity.save()
+}
