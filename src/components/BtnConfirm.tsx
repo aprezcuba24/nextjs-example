@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button";
 
-type BtnConfirmProps = {
+export type BtnConfirmProps = {
   btnIcon?: React.ReactNode,
   btnText?: string,
   title: string,

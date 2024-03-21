@@ -3,10 +3,10 @@
 import { TableData } from "@/components/Table"
 import { Category } from "@/models/entity/category/category.entity"
 import { ColumnDef } from "@tanstack/react-table"
-import { TrashIcon, Pencil1Icon } from '@radix-ui/react-icons'
+import { Pencil1Icon } from '@radix-ui/react-icons'
 import { DialogForm } from "./DialogForm"
 import { useTableContext } from "@/context/table"
-import { BtnConfirm } from "@/components/BtnConfirm"
+import { BtnRemove } from "@/components/BtnRemove"
 
 type CategoryTableProps = {
   data: Category[],
@@ -21,12 +21,7 @@ function RowActions({ row }: ActionProps) {
   return (
     <div>
       <DialogForm title="Edit" action={update} defaultValues={row} btnIcon={<Pencil1Icon />} />
-      <BtnConfirm
-        title={"Are you absolutely sure?"}
-        description={"The record will be removed."}
-        btnIcon={<TrashIcon />}
-        action={() => remove(row.id as number)}
-      />
+      <BtnRemove action={remove} entityId={row.id} />
     </div>
   )
 }
