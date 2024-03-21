@@ -9,7 +9,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 
 export type BtnConfirmProps = {
   btnIcon?: React.ReactNode,
@@ -18,14 +18,15 @@ export type BtnConfirmProps = {
   description: string,
   btnCancelText?: string,
   btnContinueText?: string,
-  action: () => any
+  action: () => any,
+  btnAttr?: ButtonProps,
 }
 
-export function BtnConfirm({ btnIcon, btnText, title, description, action, btnCancelText = 'Cancel', btnContinueText = 'Continue' }: BtnConfirmProps) {
+export function BtnConfirm({ btnIcon, btnText, title, description, action, btnAttr, btnCancelText = 'Cancel', btnContinueText = 'Continue' }: BtnConfirmProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" size={btnIcon ? "icon" : "default"}>{btnIcon || btnText}</Button>
+        <Button variant="outline" size={btnIcon ? "icon" : "default"} {...btnAttr}>{btnIcon || btnText}</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

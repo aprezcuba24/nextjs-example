@@ -7,6 +7,7 @@ import { Pencil1Icon } from '@radix-ui/react-icons'
 import { DialogForm } from "./DialogForm"
 import { useTableContext } from "@/context/table"
 import { BtnRemove } from "@/components/BtnRemove"
+import { BtnList } from "@/components/BtnList"
 
 type CategoryTableProps = {
   data: Category[],
@@ -19,10 +20,10 @@ type ActionProps = {
 function RowActions({ row }: ActionProps) {
   const { remove, update } = useTableContext()
   return (
-    <div>
+    <BtnList>
       <DialogForm title="Edit" action={update} defaultValues={row} btnIcon={<Pencil1Icon />} />
       <BtnRemove action={remove} entityId={row.id} />
-    </div>
+    </BtnList>
   )
 }
 

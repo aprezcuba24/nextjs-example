@@ -18,5 +18,5 @@ export function BtnRemove({ action, entityId, ...props }: BtnRemoveProps) {
     }, ...props
   }
 
-  return <BtnConfirm {...newProps} />
+  return <BtnConfirm {...newProps} btnAttr={{ variant: 'destructive' }} />
 }
