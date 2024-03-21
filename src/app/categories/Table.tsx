@@ -1,6 +1,6 @@
 'use client'
 
-import { TableData } from "@/components/Table"
+import { TableData, TableDataProps } from "@/components/Table"
 import { Category } from "@/models/entity/category/category.entity"
 import { ColumnDef } from "@tanstack/react-table"
 import { Pencil1Icon } from '@radix-ui/react-icons'
@@ -8,10 +8,6 @@ import { DialogForm } from "./DialogForm"
 import { useTableContext } from "@/context/table"
 import { BtnRemove } from "@/components/BtnRemove"
 import { BtnList } from "@/components/BtnList"
-
-type CategoryTableProps = {
-  data: Category[],
-}
 
 type ActionProps = {
   row: Category,
@@ -45,6 +41,6 @@ const columns: ColumnDef<Category>[] = [
   },
 ]
 
-export function CategoryTable({ data }: CategoryTableProps) {
-  return <TableData data={data} columns={columns} />
+export function CategoryTable(props: Omit<TableDataProps, 'columns'>) {
+  return <TableData {...props} columns={columns} />
 }

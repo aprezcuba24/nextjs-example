@@ -4,6 +4,8 @@ import * as React from "react"
 import {
   ColumnDef,
   ColumnFiltersState,
+  OnChangeFn,
+  PaginationState,
   SortingState,
   VisibilityState,
   flexRender,
@@ -23,13 +25,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Paginate, PaginationResult } from "@/types/pagination"
 
-type TableDataProps = {
-  data: any[],
+export type TableDataProps = {
+  pagination: PaginationResult<any>,
   columns: ColumnDef<any>[],
+  paginate: Paginate,
 }
 
-export function TableData({ data, columns }: TableDataProps) {
+export function TableData({ pagination, columns, paginate }: TableDataProps) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -37,9 +41,13 @@ export function TableData({ data, columns }: TableDataProps) {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
+  const handlePaginate: OnChangeFn<PaginationState> = (paginateUpdater: any) => {
+    const { pageIndex, pageSize } = paginateUpdater(pagination)
+    paginate({ pageIndex, pageSize });
+  }
 
   const table = useReactTable({
-    data,
+    data: pagination.data,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -49,11 +57,15 @@ export function TableData({ data, columns }: TableDataProps) {
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    manualPagination: true,
+    onPaginationChange: handlePaginate,
+    rowCount: pagination.totalPage,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
+      pagination,
     },
   })
 
@@ -111,8 +123,7 @@ export function TableData({ data, columns }: TableDataProps) {
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {pagination.firstRecordNumber} - {pagination.lastRecordNumber} of {pagination.total}
         </div>
         <div className="space-x-2">
           <Button
