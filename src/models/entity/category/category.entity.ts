@@ -1,8 +1,9 @@
 import { Length } from "class-validator"
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { AppBaseEntity } from "../app-base.entity"
 
 @Entity()
-export class Category extends BaseEntity {
+export class Category extends AppBaseEntity {
   @PrimaryGeneratedColumn()
   id: number | undefined
 
