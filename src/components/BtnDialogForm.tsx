@@ -15,7 +15,7 @@ export type BtnDialogFormProps = {
   title: string,
   btnIcon?: React.ReactNode,
   btnText?: string,
-  Component: Form
+  Component: Form,
 }
 
 export function BtnDialogForm({ action, title, btnIcon, btnText, Component, defaultValues }: BtnDialogFormProps) {
